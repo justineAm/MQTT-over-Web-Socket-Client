@@ -1,0 +1,183 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MQTT</title>
+
+    <style>
+       
+    </style>
+
+
+    <!-- Added the Bootstrap CDN -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="ambrad.css">
+</head>
+
+<body>
+    <div id="mycol"class="container-fluid">
+        <h1> MQTT over Web Socket</h1>
+        <div id="myRow"class="row align-items-start mt-5">
+            <div class="col-sm-4">
+
+                <div class=" form-group border  border-dark rounded p-3">
+
+
+                    <br>
+                    <h3>Broker</h3><br>
+                    <b>
+                        <p>Address: <span><input class="form-control" id="broker-input" type="text"
+                                    value="wss://test.mosquitto.org:8081/mqtt"></span></p>
+                    </b><br>
+
+                    <button id="connect-button" class="btn btn-secondary" value="">Connect</button><br><br>
+                    <b>Status:</b> <input class="form-control" id="broker-status" type="text" value="Press connect">
+                    <small> "Please refresh first before connecting!"</small><br><br>
+                    
+
+
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class=" form-group border   border-dark rounded p-3">
+                    <div>
+                        <div>
+                            <br>
+                            <h3>Publisher</h3><br>
+
+                            <b><p>Topic: <span><input class="form-control" id="publisher-input" type="text"></span></p></b><br>
+
+                            <b>Payload: <input class="form-control" id="publisher-payload" type="text"></b><br><br>
+
+
+                            <button id="publisher-button" class="btn btn-secondary" value="">Publish</button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class=" form-group border  border-dark rounded p-3">
+                    <div>
+                        <div>
+                            <br>
+                            <H3>Subscriber</H3><br>
+                            <b>
+                                <p>Topic:<span><input class="form-control" id="subscriber-input" type="text"></span></p>
+                            </b><br>
+
+                            <button id="subscriber-button" class="btn btn-secondary" value="">Subscribe</button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+
+
+
+
+
+
+        <div id="myRow1"class="row">
+            <div class="col-sm-4">
+                <div id="brokerbox" class="border border-secondary rounded" style="margin-top:50px;">
+                    <div class="panel panel-info">
+                        <div class="panel-heading bg-secondary">
+                            <div class="panel-title">
+                                <p class="lead text-white" style="font-size: 20px;margin-left: 10px;padding: 10px;">
+                                    Incoming Message</p>
+                            </div>
+                        </div>
+                        <div style="padding:22px;padding-top:0%;overflow-y: scroll;height: 250;width: 278px;" class="panel-body ">
+                            <table class="table" id="brokerTable">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th scope="col">Topic</th>
+                                        <th scope="col">Payload</th>
+                                        <th scope="col">Time Stamp</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-4">
+                <div id="pubbox" class="border border-secondary rounded" style="margin-top:50px;">
+                    <div class="panel panel-info">
+                        <div class="panel-heading bg-secondary">
+                            <div class="panel-title">
+                                <p class="lead text-white" style="font-size: 20px;margin-left: 10px;padding: 10px;">
+                                    Published Message</p>
+                            </div>
+                        </div>
+                        <div style="padding:20px;padding-top:0%;overflow-y: scroll;height: 250;" class="panel-body ">
+                            <table class="table"  id="publisherTable">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th scope="col">Topic</th>
+                                        <th scope="col">Payload</th>
+                                        <th scope="col">Time Stamp</th>
+                                    </tr>
+                                </thead>
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+         
+            <div class="col-sm-3">
+              
+                    <div id="subbox" class="border border-secondary rounded" style="margin-top:50px;">
+                        <div class="panel panel-info">
+                            <div class="panel-heading bg-secondary">
+                                <div class="panel-title">
+                                    <p class="lead text-white" style="font-size: 20px;margin-left: 10px;padding: 10px;">
+                                        Subscribed Message</p>
+                                </div>
+                            </div>
+                            <div style="padding:20px;padding-top:0%;overflow-y: scroll;height: 218;" class="panel-body ">
+                                <table class="table "  id="subscribeTable">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th scope="col">Topic</th>
+                                            <th scope="col">Payload</th>
+                                          
+                                        </tr>
+                                    </thead>
+                                    
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+<script src="./browserMqtt.js"></script>
+<script src="./activity4.js"></script>
+
+</html>
